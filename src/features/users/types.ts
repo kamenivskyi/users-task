@@ -15,6 +15,12 @@ export interface IPost {
   body: string;
 }
 
+export interface IAlbum {
+  id: number;
+  title: string;
+  userId: number;
+}
+
 export interface Geo {
   lat: string;
   lng: string;

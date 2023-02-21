@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IPost, IUser } from "./types";
+import { IAlbum, IPost, IUser } from "./types";
 
 const baseUrl = "https://jsonplaceholder.typicode.com";
 
@@ -18,7 +18,19 @@ export const usersAPI = createApi({
         },
       }),
     }),
+    getUserAlbums: build.query<IAlbum[], number>({
+      query: (userId: number) => ({
+        url: "/albums",
+        params: {
+          userId,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUserPostsQuery } = usersAPI;
+export const {
+  useGetUsersQuery,
+  useGetUserPostsQuery,
+  useLazyGetUserAlbumsQuery,
+} = usersAPI;

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Avatar,
-  Box,
   Button,
   List,
   ListItem,
@@ -10,13 +9,21 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
-import { useGetUsersQuery } from "../usersAPI";
+import { useGetUsersQuery, useLazyGetUserAlbumsQuery } from "../usersAPI";
+import UserAlbumsModal from "features/users/components/UsersAlbumModal";
+import Spinner from "components/Spinner";
 
 export const UsersPage = () => {
-  const { data } = useGetUsersQuery();
+  const { data, isFetching } = useGetUsersQuery();
+  const [trigger, { data: albums }] = useLazyGetUserAlbumsQuery();
+
+  const fetchAlbums = (userId: number) => {
+    trigger(userId);
+  };
 
   return (
     <div>
+      {isFetching && <Spinner />}
       <List dense={false}>
         {data?.map((item) => (
           <ListItem
@@ -25,7 +32,7 @@ export const UsersPage = () => {
                 <Link to={`/posts/${item.id}`} className="mr-2">
                   <Button color="primary">Posts</Button>
                 </Link>
-                <Button>Albums</Button>
+                <Button onClick={() => fetchAlbums(item.id)}>Albums</Button>
               </>
             }
             key={item.id}
@@ -42,6 +49,7 @@ export const UsersPage = () => {
           </ListItem>
         ))}
       </List>
+      <UserAlbumsModal data={albums} />
     </div>
   );
 };

@@ -8,8 +8,6 @@ export const UserPosts = () => {
 
   const { data } = useGetUserPostsQuery(param.userId);
 
-  console.log("userId: ", data);
-
   return (
     <div>
       <List dense={false}>
