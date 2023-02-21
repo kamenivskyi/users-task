@@ -1,14 +1,11 @@
 import React from "react";
 import {
-  Avatar,
   Button,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemText,
   Typography,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useGetUsersQuery, useLazyGetUserAlbumsQuery } from "../usersAPI";
 import UserAlbumsModal from "features/users/components/UsersAlbumModal";

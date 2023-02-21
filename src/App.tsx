@@ -1,8 +1,7 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import "./App.css";
 import { routes } from "app/routes";
 import { Layout } from "components/Layout";
+import "./App.css";
 
 function App() {
   return (

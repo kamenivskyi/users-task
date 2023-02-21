@@ -1,7 +1,7 @@
+import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 import Error from "components/Error";
 import Spinner from "components/Spinner";
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetUserPostsQuery } from "../usersAPI";
 
