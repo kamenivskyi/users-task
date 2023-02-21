@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
 import { IAlbum } from "../../types";
 import { Typography } from "@mui/material";
 import styles from "./UsersAlbumsModal.module.css";
