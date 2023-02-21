@@ -1,9 +1,30 @@
 import React from "react";
+import { List, ListItem, ListItemText } from "@mui/material";
+import Error from "components/Error";
+import Spinner from "components/Spinner";
 import { useParams } from "react-router-dom";
+import { useGetUserPostsQuery } from "../usersAPI";
 
 export const UserPosts = () => {
-  const { userId } = useParams();
-  console.log("userId: ", userId);
+  const param: any = useParams();
 
-  return <div>UserPosts</div>;
+  const { data, isFetching, isError } = useGetUserPostsQuery(param.userId);
+  return (
+    <>
+      {isFetching && <Spinner />}
+
+      {isError && <Error />}
+
+      <List dense={false}>
+        {data?.map((item) => (
+          <ListItem key={item.id}>
+            <ListItemText
+              primary={item.title}
+              secondary={item.body ? item.body : null}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </>
+  );
 };
