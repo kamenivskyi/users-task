@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 interface ILayout {
@@ -13,5 +13,12 @@ export const Layout = ({ children }: ILayout): JSX.Element => {
     padding: "10px",
   };
 
-  return <Box sx={boxStyles}>{children}</Box>;
+  return (
+    <Box sx={boxStyles}>
+      <Typography variant="h5" align="center">
+        Users app
+      </Typography>
+      {children}
+    </Box>
+  );
 };
