@@ -1,4 +1,6 @@
 import { List, ListItem, ListItemText } from "@mui/material";
+import Error from "components/Error";
+import Spinner from "components/Spinner";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetUserPostsQuery } from "../usersAPI";
@@ -6,10 +8,13 @@ import { useGetUserPostsQuery } from "../usersAPI";
 export const UserPosts = () => {
   const param: any = useParams();
 
-  const { data } = useGetUserPostsQuery(param.userId);
-
+  const { data, isFetching, isError } = useGetUserPostsQuery(param.userId);
   return (
     <div>
+      {isFetching && <Spinner />}
+
+      {isError && <Error />}
+
       <List dense={false}>
         {data?.map((item) => (
           <ListItem key={item.id}>
