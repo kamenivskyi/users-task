@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { UsersPage } from "features/users/pages/Users";
 import { UserPosts } from "features/users/pages/UserPosts";
+import NotFound from "components/NotFound";
 
 export const routes = (
   <Routes>
@@ -8,6 +9,7 @@ export const routes = (
     <Route path="/posts">
       <Route path=":userId" element={<UserPosts />} />
     </Route>
-    {/* <Route path="*" element={<NotFoundPage />} /> */}
+    БК
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
