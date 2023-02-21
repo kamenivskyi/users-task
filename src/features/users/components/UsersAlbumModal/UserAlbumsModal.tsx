@@ -7,23 +7,18 @@ import styles from "./UsersAlbumsModal.module.css";
 
 interface IUserAlbumsModalProps {
   data: IAlbum[] | undefined;
+  handleClose: () => void;
+  open: boolean;
 }
 
-export const UserAlbumsModal = ({ data }: IUserAlbumsModalProps) => {
-  const [items, setItems] = useState<IAlbum[] | undefined>([]);
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = () => {
-    setItems([]);
-  };
-
-  useEffect(() => {
-    setItems(data);
-  }, [data]);
-
+export const UserAlbumsModal = ({
+  data,
+  handleClose,
+  open,
+}: IUserAlbumsModalProps) => {
   return (
     <Modal
-      open={!!items && !!items.length}
+      open={open && !!data?.length}
       onClose={handleClose}
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
@@ -32,8 +27,8 @@ export const UserAlbumsModal = ({ data }: IUserAlbumsModalProps) => {
         <Typography variant="h5" id="parent-modal-title">
           Albums
         </Typography>
-        {items &&
-          items.map((item, idx) => (
+        {data &&
+          data.map((item, idx) => (
             <Typography
               sx={{ mt: 1, mb: 1, fontSize: 12 }}
               key={item.id}

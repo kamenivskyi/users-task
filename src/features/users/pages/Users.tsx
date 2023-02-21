@@ -16,9 +16,19 @@ import styles from "../styles/Users.module.css";
 export const UsersPage = () => {
   const { data, isFetching, isError } = useGetUsersQuery();
   const [trigger, { data: albums }] = useLazyGetUserAlbumsQuery();
+  const [open, setOpen] = React.useState(false);
 
-  const fetchAlbums = (userId: number) => {
-    trigger(userId);
+  const fetchAlbums = async (userId: number) => {
+    await trigger(userId);
+    handleOpen();
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -54,7 +64,7 @@ export const UsersPage = () => {
             </ListItem>
           ))}
       </List>
-      <UserAlbumsModal data={albums} />
+      <UserAlbumsModal data={albums} open={open} handleClose={handleClose} />
     </div>
   );
 };
