@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
@@ -13,6 +14,7 @@ import { useGetUsersQuery, useLazyGetUserAlbumsQuery } from "../usersAPI";
 import UserAlbumsModal from "features/users/components/UsersAlbumModal";
 import Spinner from "components/Spinner";
 import Error from "components/Error";
+import styles from "../styles/Users.module.css";
 
 export const UsersPage = () => {
   const { data, isFetching, isError } = useGetUsersQuery();
@@ -42,15 +44,16 @@ export const UsersPage = () => {
               }
               key={item.id}
             >
-              <ListItemAvatar>
-                <Avatar>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={item.name}
-                secondary={item.email ? item.email : null}
-              />
+              <Typography
+                noWrap
+                component="div"
+                className={styles.trimmedTitle}
+              >
+                <ListItemText
+                  primary={item.name}
+                  secondary={item.email ? item.email : null}
+                />
+              </Typography>
             </ListItem>
           ))}
       </List>

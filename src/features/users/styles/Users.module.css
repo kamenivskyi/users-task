@@ -1,0 +1,14 @@
+@media (min-width: 320px) {
+  .trimmedTitle {
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 500px) {
+  .trimmedTitle {
+    width: 300px;
+  }
+}

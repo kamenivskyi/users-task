@@ -10,7 +10,7 @@ export const UserPosts = () => {
 
   const { data, isFetching, isError } = useGetUserPostsQuery(param.userId);
   return (
-    <div>
+    <>
       {isFetching && <Spinner />}
 
       {isError && <Error />}
@@ -25,6 +25,6 @@ export const UserPosts = () => {
           </ListItem>
         ))}
       </List>
-    </div>
+    </>
   );
 };
