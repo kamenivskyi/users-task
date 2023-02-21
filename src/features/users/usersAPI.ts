@@ -12,7 +12,7 @@ export const usersAPI = createApi({
     }),
     getUserPosts: build.query<IPost[], number>({
       query: (userId: number) => ({
-        url: "/paosts",
+        url: "/posts",
         params: {
           userId,
         },
