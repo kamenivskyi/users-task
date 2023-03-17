@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { routes } from "app/routes";
-import { Layout } from "components/Layout";
+import Layout from "components/Layout";
 import "./App.css";
 
 function App() {

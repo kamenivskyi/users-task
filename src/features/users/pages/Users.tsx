@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   List,
@@ -12,49 +12,58 @@ import UserAlbumsModal from "features/users/components/UsersAlbumModal";
 import Spinner from "components/Spinner";
 import Error from "components/Error";
 import styles from "../styles/Users.module.css";
+import gsap from "gsap";
+import { IUser } from "../types";
+import { User } from "../components/User/User";
 
 export const UsersPage = () => {
   const { data, isFetching, isError } = useGetUsersQuery();
   const [trigger, { data: albums }] = useLazyGetUserAlbumsQuery();
+  const [open, setOpen] = React.useState(false);
+  const [items, setItems] = useState<IUser[]>([]);
+  const listRef = useRef(null);
 
-  const fetchAlbums = (userId: number) => {
-    trigger(userId);
+  const fetchAlbums = async (userId: number) => {
+    await trigger(userId);
+    handleOpen();
+  };
+
+  useEffect(() => {
+    if (data) {
+      setItems(data);
+    }
+  }, [data]);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (id: number) => {
+    const newItems = items.filter((item) => item.id !== id);
+    setItems(newItems);
   };
 
   return (
-    <div>
+    <>
       {isFetching && !isError && <Spinner />}
 
       {isError && <Error />}
-
-      <List dense={false}>
+      <List dense={false} ref={listRef}>
         {!isError &&
-          data?.map((item) => (
-            <ListItem
-              secondaryAction={
-                <>
-                  <Link to={`/posts/${item.id}`} className="mr-2">
-                    <Button color="primary">Posts</Button>
-                  </Link>
-                  <Button onClick={() => fetchAlbums(item.id)}>Albums</Button>
-                </>
-              }
+          items?.map((item) => (
+            <User
               key={item.id}
-            >
-              <Typography
-                noWrap
-                component="div"
-                className={styles.trimmedTitle}
-              >
-                <ListItemText
-                  primary={item.name}
-                  secondary={item.email ? item.email : null}
-                />
-              </Typography>
-            </ListItem>
+              item={item}
+              fetchAlbums={fetchAlbums}
+              handleDelete={handleDelete}
+            />
           ))}
       </List>
-      <UserAlbumsModal data={albums} />
-    </div>
+      <UserAlbumsModal data={albums} open={open} handleClose={handleClose} />
+    </>
   );
 };
