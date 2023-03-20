@@ -15,6 +15,9 @@ import styles from "../styles/Users.module.css";
 import gsap from "gsap";
 import { IUser } from "../types";
 import { User } from "../components/User/User";
+import { useAnimatedList } from "hooks";
+
+const userClass = "user";
 
 export const UsersPage = () => {
   const { data, isFetching, isError } = useGetUsersQuery();
@@ -22,6 +25,8 @@ export const UsersPage = () => {
   const [open, setOpen] = React.useState(false);
   const [items, setItems] = useState<IUser[]>([]);
   const listRef = useRef(null);
+
+  useAnimatedList(items, userClass);
 
   const fetchAlbums = async (userId: number) => {
     await trigger(userId);
@@ -55,12 +60,13 @@ export const UsersPage = () => {
       <List dense={false} ref={listRef}>
         {!isError &&
           items?.map((item) => (
-            <User
-              key={item.id}
-              item={item}
-              fetchAlbums={fetchAlbums}
-              handleDelete={handleDelete}
-            />
+            <div className={userClass} key={item.id}>
+              <User
+                item={item}
+                fetchAlbums={fetchAlbums}
+                handleDelete={handleDelete}
+              />
+            </div>
           ))}
       </List>
       <UserAlbumsModal data={albums} open={open} handleClose={handleClose} />
